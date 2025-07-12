@@ -1,11 +1,17 @@
- let prompt = require('prompt-sync')();
+let prompt = require("prompt-sync")();
 
-let alunos = [];
-let cursos = [];
+let alunos = []; // Lista da alunos
+let cursos = []; // lista de cursos disponíveis para matrícula, cursar
 
-let opcao;
+let opcao; //Variável para usuário escolher opção do menu
+let senha = prompt("Digite a senha:");
+if (senha === "senai1") {
+    //Validação de senha padrão para acesso ao sistema
+    console.log("Senha correta, acesso permitido.");
 
 do {
+    //exibe o menu das opções criadas
+
     opcao = prompt(
                   'Sistema Escolar\n\n'+
                   '1 - Cadastrar aluno\n' + 
@@ -21,7 +27,7 @@ do {
         case '1':
             let nomeAluno = prompt('Digite o nome do aluno: ');
             if (nomeAluno !== null && nomeAluno.trim() !== '') {
-                alunos.push(nomeAluno.trim);
+                alunos.push(nomeAluno.trim());  
                 console.log("Aluno cadastrado com sucesso!");
             } else {
                 console.log("Nome inválido.");
@@ -77,44 +83,57 @@ do {
             break;
         
         case '5':
-            console.log('\nAlunos Cadastrados:');    
-            if (alunos.length > 0){ 
+            console.log("\nAlunos Cadastrados:");    
+            if (alunos.length > 0) { 
                 for (let i = 0; i < alunos.length; i++) { 
                 let curso;
-                if(alunos[i].curso){
+                if (alunos[i].curso) {
                     curso = alunos[i].curso;
                     } else {
                     curso = "Não matriculado";   
                     }
-                    console.log("-" + alunos[i].nome + (curso: ";
-                    }
-                    break;
+                    console.log("-" + alunos[i].nome + " (Curso: " + curso + ")");
+                }
+            } else {
+                console.log("Nenhum aluno cadastrado.");
+            }
+            break;
                  
         case "6":  
-            if (alunos.lenght === 0 || cursos.lenght === 0){
+            if (alunos.length === 0 || cursos.length === 0){
                 console.log("É necessário ter alunos e cursos cadastrados para realizar a matrícula.");
             break; 
             }
-            letnomeMatricula = prompt("Digite o nome do aluno para matrícula:");
-            let aluno = null;
-            for (let i = 0; i < alunos.lenght; i ++){
-                if (alunos[i].nome === nomeMatricula){
-                    aluno = alunos[i];
-            {
-            break;
-
-           
-        case "7":
-            console.log("Saindo do sistema...");
-            break;
-
+                let nomeMatricula = prompt("Digite o nome do aluno para matrícula:");
+                let aluno = null;
+                for (let i = 0; i < alunos.length; i++) {
+                    if (alunos[i].nome === nomeMatricula) {
+                        aluno = alunos[i];
+                        break;
+                    }
+                }
+                if (aluno) {
+                    let nomeCursoMatricula = prompt("Digite o nome do curso para matrícula:");
+                    if (cursos.includes(nomeCursoMatricula)) {
+                        aluno.curso = nomeCursoMatricula;
+                        console.log("Matrícula realizada com sucesso!");
+                    } else {
+                        console.log("Curso não encontrado.");
+                    }
+                } else {
+                    console.log("Aluno não encontrado.");
+                }
+                break;
+    
+            case "7":
+                console.log("Saindo do sistema...");
+                break;
+    
             default:
                 console.log("Opção inválida. Tente novamente.");
-                
+                break;
+        }
+        } while (opcao !== "7");
+    } else {
+        console.log("Senha incorreta, acesso negado.");
     }
-
-    } while (opcao !== "7");
-
-
-
-    
